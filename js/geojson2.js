@@ -3,7 +3,8 @@
  */
 
 /* Map of GeoJSON data from MegaCities.geojson */
-
+var statesData
+var world
 var map;
 var attribute;
 var attributes;
@@ -32,9 +33,12 @@ function createMap(){
         //and add it to map
 
     }).addTo(map);
+    L.geoJson(world).addTo(map);
+    console.log(world)
 
     //call getData function- will add our MegaCities data to the map
     getData(map);
+    getWorldData(map)
 };
 
 //calculate the radius of each proportional symbol
@@ -153,6 +157,22 @@ function getData(map){
 
 		}	
 	});
+}
+
+function getWorldData(map){
+    //ajax function to get MegaCities data layer loaded into map
+    $.ajax("data/World.GeoJSON", {
+        //datatype specified
+        dataType: "json",
+        //upon success, call the following function
+        success: function(response){
+           
+            
+            console.log(response)
+            return response
+
+        }   
+    });
 }
 
 //way at the bottom- we call the create map function once the doc has loaded.
